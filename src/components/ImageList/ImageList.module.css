@@ -1,0 +1,110 @@
+.imageList {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.imagesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.imageCard {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageCard:hover {
+  transform: translateY(-5px);
+}
+
+.imageCard img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.imageCard h2 {
+  padding: 1rem;
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+  background: white;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #333333f2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  position: relative;
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.modalContent img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0px 0px 50px 10px;
+}
+
+.closeButton {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 2.5rem;
+  cursor: pointer;
+  padding: 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.pagination button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  background: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.pagination button:disabled {
+  background: #cccccc;
+  cursor: not-allowed;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.5rem;
+  padding: 2rem;
+}
+
+.error {
+  color: #dc3545;
+  text-align: center;
+  padding: 2rem;
+}
