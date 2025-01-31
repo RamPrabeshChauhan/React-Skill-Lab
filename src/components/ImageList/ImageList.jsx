@@ -1,12 +1,11 @@
-import React, {useState, useEffect, Suspense} from 'react'
+import React, {useState, useEffect} from 'react'
 import {fetchImagesWithAxios} from '../../services/api'
 import SearchBar from '../SearchBar/SearchBar'
-import Loading from '../Loading/Loading'
 import Style from './ImageList.module.css'
 
 const ImageList = () => {
   const [images, setImages] = useState([])
-  const [totalPages, setTotalPages] = useState(0)
+  const [totalPages, setTotalPages] = useState(1)
   const [currentPage, setCurrentPage] = useState(1)
   const [query, setQuery] = useState('nature')
   const [selectedImage, setSelectedImage] = useState(null)
@@ -33,6 +32,10 @@ const ImageList = () => {
     setCurrentPage(1)
   }
 
+  function capitalizeWords(str) {
+    return str.replace(/\b\w/g, char => char.toUpperCase());
+  }
+
   const handleNextPage = () => {
     setCurrentPage((prev) => prev + 1)
   }
@@ -56,37 +59,35 @@ const ImageList = () => {
       <SearchBar onSearch={handleSearch} />
       <h1>{query[0].toUpperCase() + query.slice(1)} Image Gallery</h1>
       {error && <div className={Style.error}>Error: {error}</div>}
-      <Suspense fallback={<Loading />}>
-        <div className={Style.imagesContainer}>
-          {images.map((image) => (
-            <div key={image.id} className={Style.imageCard} onClick={() => handleImageClick(image)}>
-              <img src={image.urls.regular} alt={image.alt_description} />
-              <h2>{image.alt_description?.substring(0, 50) || 'Nature Image'}</h2>
-            </div>
-          ))}
-        </div>
-
-        {selectedImage && (
-          <div className={Style.modalOverlay} onClick={closeModal}>
-            <div className={Style.modalContent} onClick={(e) => e.stopPropagation()}>
-              <img src={selectedImage.urls.full} alt={selectedImage.alt_description || 'Full size'} />
-              <button className={Style.closeButton} onClick={closeModal}>
-                &times;
-              </button>
-            </div>
+      <div className={Style.imagesContainer}>
+        {images.map((image) => (
+          <div key={image.id} className={Style.imageCard} onClick={() => handleImageClick(image)}>
+            <img src={image.urls.small_s3} alt={image.alt_description} loading='lazy' low />
+            <h2>{capitalizeWords(image.alt_description).substring(0, 50) || 'Image description not available'}</h2>
           </div>
-        )}
+        ))}
+      </div>
 
-        <div className={Style.pagination}>
-          <button onClick={handlePrevPage} disabled={currentPage === 1}>
-            Previous
-          </button>
-          <span>
-            Page {currentPage} / {totalPages}
-          </span>
-          <button onClick={handleNextPage}>Next</button>
+      {selectedImage && (
+        <div className={Style.modalOverlay} onClick={closeModal}>
+          <div className={Style.modalContent} onClick={(e) => e.stopPropagation()}>
+            <img src={selectedImage.urls.full} alt={selectedImage.alt_description || 'Image description not available'} loading='lazy' />
+            <button className={Style.closeButton} onClick={closeModal}>
+              &times;
+            </button>
+          </div>
         </div>
-      </Suspense>
+      )}
+
+      <div className={Style.pagination}>
+        <button onClick={handlePrevPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        <span>
+          Page {currentPage} / {totalPages}
+        </span>
+        <button onClick={handleNextPage}>Next</button>
+      </div>
     </div>
   )
 }

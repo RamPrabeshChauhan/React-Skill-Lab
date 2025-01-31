@@ -1,10 +1,17 @@
+import { Suspense, lazy } from 'react'
 import './App.css'
-import ImageList from './components/ImageList/ImageList'
+import Loading from './components/Loading/Loading'
+
+const ImageList = lazy(() => {
+  return import('../src/components/ImageList/ImageList')
+})
 
 function App() {
   return (
     <div className='App'>
-      <ImageList />
+      <Suspense fallback={<Loading/>}>
+        <ImageList />
+      </Suspense>
     </div>
   )
 }

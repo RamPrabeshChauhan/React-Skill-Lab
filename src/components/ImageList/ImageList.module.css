@@ -97,12 +97,6 @@
   cursor: not-allowed;
 }
 
-.loading {
-  text-align: center;
-  font-size: 1.5rem;
-  padding: 2rem;
-}
-
 .error {
   color: #dc3545;
   text-align: center;
