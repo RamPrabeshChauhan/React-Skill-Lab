@@ -46,8 +46,6 @@ src/
   │   ├── ImageList/        # Image grid display
   │   ├── ImageModal/       # High-quality image modal
   │   ├── SearchBar/        # Image search component
-  │   ├── Loading/          # Loading indicator
-  │   └── ImageGallery/     # Main container component
   ├── App.js                # Root component
   └── .env                  # Environment variables
 ```
