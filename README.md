@@ -44,7 +44,7 @@ npm start
 src/
   ├── components/
   │   ├── ImageList/        # Image grid display
-  │   ├── ImageModal/       # High-quality image modal
+  │   ├── Loading/          # Motion Loader
   │   ├── SearchBar/        # Image search component
   ├── App.js                # Root component
   └── .env                  # Environment variables
